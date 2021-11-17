@@ -9,7 +9,9 @@ on:
 # https://docs.github.com/en/actions/learn-github-actions/workflow-syntax-for-github-actions#jobsjob_idcontainer
 
 jobs:
+  
   terraform-docker:
+    
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
