@@ -1,9 +1,7 @@
 name: container
-on:
-  push:
-    branches: [ main ]
-  pull_request:
-    branches: [ main ]
+on: push
+
+# https://docs.github.com/en/actions/learn-github-actions/workflow-syntax-for-github-actions#jobsjob_idcontainer
 
 jobs:
   terraform-docker:
