@@ -1,0 +1,16 @@
+name: container
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+
+  terraform-docker:
+
+    runs-on: ubuntu-latest
+    container:
+      image: docker.io/nhostert/myapp:terraform
+    
