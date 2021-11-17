@@ -6,6 +6,8 @@ on: push
 jobs:
   terraform-docker:
     runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
     container:
       image: docker.io/nhostert/myapp:terraform
     
