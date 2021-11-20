@@ -11,5 +11,5 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     container:
-      image: docker pull moonwalkers/terraform:202111202131
+      image: docker.io/moonwalkers/terraform:202111202131
     
