@@ -13,13 +13,5 @@ jobs:
       TF_CLI_CONFIG_FILE: "/app/.terraformrc"
     steps:
     - uses: actions/checkout@v2
-    - run: 'echo "$GCP_CREDENTIAL" > cat /app/service-account.json'
-      shell: bash
-      env:
-        GCP_CREDENTIAL: ${{secrets.TF_CLI_CONFIG_FILE}}
-    - run: 'echo "$TF_CLI_CONFIG_FILE" > cat /app/.terraformrc'
-      shell: bash
-      env:
-        TF_CLI_CONFIG_FILE: ${{secrets.TERRAFORM_TOKEN}} 
-    - run: docker run -e GOOGLE_APPLICATION_CREDENTIALS -e TF_CLI_CONFIG_FILE docker.io/moonwalkers/terraform:202111202131 
+    - run: docker run -e GOOGLE_APPLICATION_CREDENTIALS=${{secrets.GCP_CREDENTIAL}} -e TF_CLI_CONFIG_FILE=${{secrets.TERRAFORM_TOKEN}} docker.io/moonwalkers/terraform:202111202131 
     
