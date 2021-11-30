@@ -13,5 +13,5 @@ jobs:
       TF_CLI_CONFIG_FILE: ${{ secrets.TERRAFORM_TOKEN }}
     steps:
     - uses: actions/checkout@v2
-    - run: docker run --rm docker.io/moonwalkers/terraform:202111202131 -e GOOGLE_APPLICATION_CREDENTIALS -e TF_CLI_CONFIG_FILE
+    - run: docker run -e GOOGLE_APPLICATION_CREDENTIALS -e TF_CLI_CONFIG_FILE docker.io/moonwalkers/terraform:202111202131 
     
