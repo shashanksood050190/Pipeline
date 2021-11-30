@@ -9,9 +9,17 @@ jobs:
   terraform-docker:
     runs-on: ubuntu-latest
     env:
-      GOOGLE_APPLICATION_CREDENTIALS: ${{ secrets.GCP_CREDENTIAL }}
-      TF_CLI_CONFIG_FILE: ${{ secrets.TERRAFORM_TOKEN }}
+      GOOGLE_APPLICATION_CREDENTIALS: "/app/service-account.json"
+      TF_CLI_CONFIG_FILE: "/app/.terraformrc"
     steps:
     - uses: actions/checkout@v2
+    - run: 'echo "$GCP_CREDENTIAL" > cat /app/service-account.json'
+      shell: bash
+      env:
+        SSH_KEY: ${{secrets.GCP_CREDENTIAL}}
+    - run: 'echo "$GCP_CREDENTIAL" > cat /app/.terraformrc'
+      shell: bash
+      env:
+        SSH_KEY: ${{secrets.TERRAFORM_TOKEN}} 
     - run: docker run -e GOOGLE_APPLICATION_CREDENTIALS -e TF_CLI_CONFIG_FILE docker.io/moonwalkers/terraform:202111202131 
     
