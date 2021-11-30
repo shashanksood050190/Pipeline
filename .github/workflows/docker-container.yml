@@ -19,5 +19,5 @@ jobs:
         TERRAFORM_TOKEN: ${{secrets.TERRAFORM_TOKEN}}    
     - run: docker run -e GOOGLE_APPLICATION_CREDENTIALS -e TF_CLI_CONFIG_FILE docker.io/moonwalkers/terraform:202111202131 
       env:
-        GOOGLE_APPLICATION_CREDENTIALS: gcp.json
-        TF_CLI_CONFIG_FILE: terraformrc.rc
+        GOOGLE_APPLICATION_CREDENTIALS: ./gcp.json
+        TF_CLI_CONFIG_FILE: ./terraformrc.rc
