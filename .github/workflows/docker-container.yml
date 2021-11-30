@@ -8,9 +8,16 @@ on: push
 jobs:
   terraform-docker:
     runs-on: ubuntu-latest
+    
     steps:
     - uses: actions/checkout@v2
+    - run: 'echo $GCP_CREDENTIAL > cat gcp.json'
+      env:
+        GCP_CREDENTIAL: ${{secrets.GCP_CREDENTIAL}}
+    - run: 'echo $TERRAFORM_TOKEN > cat terraformrc.rc'
+      env:
+        TERRAFORM_TOKEN: ${{secrets.TERRAFORM_TOKEN}}    
     - run: docker run -e GOOGLE_APPLICATION_CREDENTIALS -e TF_CLI_CONFIG_FILE docker.io/moonwalkers/terraform:202111202131 
       env:
-        GOOGLE_APPLICATION_CREDENTIALS = ${{secrets.GCP_CREDENTIAL}}
-        TF_CLI_CONFIG_FILE = ${{secrets.TERRAFORM_TOKEN}}
+        GOOGLE_APPLICATION_CREDENTIALS: gcp.json
+        TF_CLI_CONFIG_FILE: terraformrc.rc
