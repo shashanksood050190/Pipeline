@@ -14,6 +14,8 @@ jobs:
     - run: 'echo $GCP_CREDENTIAL > cat gcp.json'
       env:
         GCP_CREDENTIAL: ${{secrets.GCP_CREDENTIAL}}
+    - run: 'echo $GCP_CREDENTIAL'
+    - run: 'vi gcp.json'
     - run: 'echo $TERRAFORM_TOKEN > cat terraformrc.rc'
       env:
         TERRAFORM_TOKEN: ${{secrets.TERRAFORM_TOKEN}}    
