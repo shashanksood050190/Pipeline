@@ -10,5 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
-    - run: docker run -e GOOGLE_APPLICATION_CREDENTIALS=${{secrets.GCP_CREDENTIAL}} -e TF_CLI_CONFIG_FILE=${{secrets.TERRAFORM_TOKEN}} docker.io/moonwalkers/terraform:202111202131 
-    
+    - run: docker run -e GOOGLE_APPLICATION_CREDENTIALS -e TF_CLI_CONFIG_FILE docker.io/moonwalkers/terraform:202111202131 
+      env:
+        GOOGLE_APPLICATION_CREDENTIALS = ${{secrets.GCP_CREDENTIAL}}
+        TF_CLI_CONFIG_FILE = ${{secrets.TERRAFORM_TOKEN}}
