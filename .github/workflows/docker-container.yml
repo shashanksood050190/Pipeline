@@ -16,10 +16,10 @@ jobs:
     - run: 'echo "$GCP_CREDENTIAL" > cat /app/service-account.json'
       shell: bash
       env:
-        SSH_KEY: ${{secrets.GCP_CREDENTIAL}}
-    - run: 'echo "$GCP_CREDENTIAL" > cat /app/.terraformrc'
+        GCP_CREDENTIAL: ${{secrets.TF_CLI_CONFIG_FILE}}
+    - run: 'echo "$TF_CLI_CONFIG_FILE" > cat /app/.terraformrc'
       shell: bash
       env:
-        SSH_KEY: ${{secrets.TERRAFORM_TOKEN}} 
+        TF_CLI_CONFIG_FILE: ${{secrets.TERRAFORM_TOKEN}} 
     - run: docker run -e GOOGLE_APPLICATION_CREDENTIALS -e TF_CLI_CONFIG_FILE docker.io/moonwalkers/terraform:202111202131 
     
