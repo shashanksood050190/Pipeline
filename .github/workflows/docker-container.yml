@@ -8,10 +8,10 @@ on: push
 jobs:
   terraform-docker:
     runs-on: ubuntu-latest
+    env:
+      GOOGLE_APPLICATION_CREDENTIALS: ${{ secrets.GCP_CREDENTIAL }}
+      TF_CLI_CONFIG_FILE: ${{ secrets.TERRAFORM_TOKEN }}
     steps:
     - uses: actions/checkout@v2
-    - env:
-        GOOGLE_APPLICATION_CREDENTIALS: ${{ secrets.GCP_CREDENTIAL }}
-        TF_CLI_CONFIG_FILE: ${{ secrets.TERRAFORM_TOKEN }}
-      run: docker run --rm docker.io/moonwalkers/terraform:202111202131
+    - run: docker run --rm docker.io/moonwalkers/terraform:202111202131 -e GOOGLE_APPLICATION_CREDENTIALS -e TF_CLI_CONFIG_FILE
     
