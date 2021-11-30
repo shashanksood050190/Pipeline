@@ -15,8 +15,8 @@ jobs:
     - run: 'echo $GCP_CREDENTIAL >> gcp.json'
       env:
         GCP_CREDENTIAL: ${{secrets.GCP_CREDENTIAL}}
-    - run: 'cat gcp.json'
-    - run: 'echo $TERRAFORM_TOKEN > cat terraformrc.rc'
+    - run: 'touch terraformrc.rc'
+    - run: 'echo $TERRAFORM_TOKEN >> terraformrc.rc'
       env:
         TERRAFORM_TOKEN: ${{secrets.TERRAFORM_TOKEN}}    
     - run: docker run -e GOOGLE_APPLICATION_CREDENTIALS -e TF_CLI_CONFIG_FILE docker.io/moonwalkers/terraform:202111202131 
