@@ -1,25 +1,32 @@
-name: container
+name: Infrastructure
 on: push
 
-
 # https://docs.github.com/en/actions/learn-github-actions/workflow-syntax-for-github-actions#jobsjob_idcontainer
-# xyz123
+
+env:
+  TEST_TAG: moonwalkers/terraform:runnow
 
 jobs:
-  terraform-docker:
+  dev:
     runs-on: ubuntu-latest
-    
+    environment:
+      name: dev
     steps:
-    - uses: actions/checkout@v2
-    - run: 'touch gcp.json'
-    - run: 'echo $GCP_CREDENTIAL >> gcp.json'
-      env:
-        GCP_CREDENTIAL: ${{secrets.GCP_CREDENTIAL}}
-    - run: 'touch terraformrc.rc'
-    - run: 'echo $TERRAFORM_TOKEN >> terraformrc.rc'
-      env:
-        TERRAFORM_TOKEN: ${{secrets.TERRAFORM_TOKEN}}    
-    - run: docker run -e GOOGLE_APPLICATION_CREDENTIALS -e TF_CLI_CONFIG_FILE docker.io/moonwalkers/terraform:202111202131 
-      env:
-        GOOGLE_APPLICATION_CREDENTIALS: ./gcp.json
-        TF_CLI_CONFIG_FILE: ./terraformrc.rc
+    
+      - name: Login to Docker Hub
+        uses: docker/login-action@v1
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+          
+      - name: Build and export to Docker
+        uses: docker/build-push-action@v2
+        with:
+          load: true
+          tags: ${{ env.TEST_TAG }}
+          secrets: |
+            "TERRAFORM_TOKEN=${{ secrets.TERRAFORM_TOKEN }}"
+            "GCP_CREDENTIAL=${{ secrets.GCP_CREDENTIAL }}"
+            "BUCKET=${{ secrets.BUCKET_DEV }}"
+            "TFVARS=${{ secrets.TFVARS_DEV }}"
+          
