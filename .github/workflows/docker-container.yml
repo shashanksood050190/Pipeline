@@ -29,4 +29,9 @@ jobs:
             "GCP_CREDENTIAL=${{ secrets.GCP_CREDENTIAL }}"
             "BUCKET=${{ secrets.BUCKET_DEV }}"
             "TFVARS=${{ secrets.TFVARS_DEV }}"
+            
+      -
+        name: Run the image
+        run: |
+          docker run --rm ${{ env.TEST_TAG }}
           
